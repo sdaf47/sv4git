@@ -40,8 +40,9 @@ const (
 {{- end}}`
 
 	rnTemplate = `## {{if .Version}}v{{.Version}}{{end}}{{if and .Date .Version}} ({{end}}{{.Date}}{{if and .Version .Date}}){{end}}
-{{- template "rnSection" .Sections.feat}}
-{{- template "rnSection" .Sections.fix}}
+{{ range $tag, $value := .Sections }}
+	{{- template "rnSection" $value}}
+{{ end }}
 {{- template "rnSectionBreakingChanges" .BreakingChanges}}
 `
 )
