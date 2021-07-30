@@ -1,6 +1,7 @@
 package sv
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 	"time"
@@ -43,6 +44,8 @@ func TestReleaseNoteProcessorImpl_Create(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			p := NewReleaseNoteProcessor(ReleaseNotesConfig{Headers: map[string]string{"t1": "Tag 1", "t2": "Tag 2", "breaking-change": "Breaking Changes"}})
+			f := NewOutputFormatter()
+			fmt.Println(f.FormatReleaseNote(tt.want))
 			if got := p.Create(tt.version, tt.date, tt.commits); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("ReleaseNoteProcessorImpl.Create() = %v, want %v", got, tt.want)
 			}
